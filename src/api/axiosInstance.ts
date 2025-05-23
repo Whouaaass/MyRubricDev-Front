@@ -1,5 +1,6 @@
 import axios from 'axios';
 import type { AxiosError, AxiosInstance } from 'axios';
+import { AppLocalStorage } from '@/integrations/localStorage/AppLocalStorage';
 
 // Create a store for error handling (you might want to adjust this based on your state management solution)
 export const axiosErrorStore = {
@@ -26,7 +27,7 @@ const axiosInstance: AxiosInstance = axios.create({
 // Request interceptor for adding auth token
 axiosInstance.interceptors.request.use(
     (config) => {
-        const token = localStorage.getItem('token');
+        const token = AppLocalStorage.getToken();
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }
