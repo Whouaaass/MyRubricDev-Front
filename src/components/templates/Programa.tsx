@@ -1,7 +1,7 @@
+import { ElementGrid } from '../layout/ElementGrid'
 import AsignatureCard from '../molecules/AsignatureCard'
 import CompetencyCard from '../molecules/CompetencyCard'
 import SectionHeader from '../molecules/SectionHeader'
-import type { PropsWithChildren } from 'react'
 
 interface ProgramaProps {
   competencies: Array<{
@@ -41,14 +41,6 @@ const Program: React.FC<ProgramaProps> = ({ competencies, asignatures }) => {
           ></AsignatureCard>
         ))}
       </ElementGrid>
-    </div>
-  )
-}
-
-function ElementGrid({ children }: PropsWithChildren) {
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
-      {children}
     </div>
   )
 }

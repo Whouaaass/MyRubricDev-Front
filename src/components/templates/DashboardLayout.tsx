@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import Sidebar from '../organisms/Sidebar'
-import Header from '../organisms/Header'
+import Header from '../organisms/DashboardHeader'
 import useLayoutStore from '@/store/layoutStore'
 
 interface LayoutProps {
@@ -10,7 +10,7 @@ interface LayoutProps {
   logo?: React.ReactNode
 }
 
-const Layout: React.FC<LayoutProps> = ({
+const DashboardLayout: React.FC<LayoutProps> = ({
   title,
   children,
   appName = 'ReactApp',
@@ -79,4 +79,4 @@ const Layout: React.FC<LayoutProps> = ({
   )
 }
 
-export default Layout
+export default DashboardLayout

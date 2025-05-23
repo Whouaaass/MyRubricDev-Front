@@ -14,17 +14,19 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
 import { Route as DashboardIndexImport } from './routes/dashboard/index'
 import { Route as ExampleChatImport } from './routes/example.chat'
-import { Route as DemoTanstackQueryImport } from './routes/demo.tanstack-query'
-import { Route as DemoStoreImport } from './routes/demo.store'
+import { Route as DemoTanstackQueryImport } from './routes/demo/tanstack-query'
+import { Route as DemoStoreImport } from './routes/demo/store'
 import { Route as DashboardStaffImport } from './routes/dashboard/staff'
 import { Route as DashboardProgramImport } from './routes/dashboard/program'
+import { Route as AuthRegisterImport } from './routes/auth/register'
+import { Route as AuthLoginImport } from './routes/auth/login'
 import { Route as ExampleGuitarsIndexImport } from './routes/example.guitars/index'
-import { Route as DashboardSubjectsIndexImport } from './routes/dashboard/subjects/index'
+import { Route as DashboardAsignatureIndexImport } from './routes/dashboard/asignature/index'
 import { Route as ExampleGuitarsGuitarIdImport } from './routes/example.guitars/$guitarId'
-import { Route as DemoStartServerFuncsImport } from './routes/demo.start.server-funcs'
-import { Route as DemoStartApiRequestImport } from './routes/demo.start.api-request'
-import { Route as DemoFormSimpleImport } from './routes/demo.form.simple'
-import { Route as DemoFormAddressImport } from './routes/demo.form.address'
+import { Route as DemoStartServerFuncsImport } from './routes/demo/start.server-funcs'
+import { Route as DemoStartApiRequestImport } from './routes/demo/start.api-request'
+import { Route as DemoFormSimpleImport } from './routes/demo/form.simple'
+import { Route as DemoFormAddressImport } from './routes/demo/form.address'
 
 // Create/Update Routes
 
@@ -70,15 +72,27 @@ const DashboardProgramRoute = DashboardProgramImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const AuthRegisterRoute = AuthRegisterImport.update({
+  id: '/auth/register',
+  path: '/auth/register',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuthLoginRoute = AuthLoginImport.update({
+  id: '/auth/login',
+  path: '/auth/login',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const ExampleGuitarsIndexRoute = ExampleGuitarsIndexImport.update({
   id: '/example/guitars/',
   path: '/example/guitars/',
   getParentRoute: () => rootRoute,
 } as any)
 
-const DashboardSubjectsIndexRoute = DashboardSubjectsIndexImport.update({
-  id: '/dashboard/subjects/',
-  path: '/dashboard/subjects/',
+const DashboardAsignatureIndexRoute = DashboardAsignatureIndexImport.update({
+  id: '/dashboard/asignature/',
+  path: '/dashboard/asignature/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -121,6 +135,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/auth/login': {
+      id: '/auth/login'
+      path: '/auth/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof AuthLoginImport
+      parentRoute: typeof rootRoute
+    }
+    '/auth/register': {
+      id: '/auth/register'
+      path: '/auth/register'
+      fullPath: '/auth/register'
+      preLoaderRoute: typeof AuthRegisterImport
       parentRoute: typeof rootRoute
     }
     '/dashboard/program': {
@@ -200,11 +228,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExampleGuitarsGuitarIdImport
       parentRoute: typeof rootRoute
     }
-    '/dashboard/subjects/': {
-      id: '/dashboard/subjects/'
-      path: '/dashboard/subjects'
-      fullPath: '/dashboard/subjects'
-      preLoaderRoute: typeof DashboardSubjectsIndexImport
+    '/dashboard/asignature/': {
+      id: '/dashboard/asignature/'
+      path: '/dashboard/asignature'
+      fullPath: '/dashboard/asignature'
+      preLoaderRoute: typeof DashboardAsignatureIndexImport
       parentRoute: typeof rootRoute
     }
     '/example/guitars/': {
@@ -221,6 +249,8 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/register': typeof AuthRegisterRoute
   '/dashboard/program': typeof DashboardProgramRoute
   '/dashboard/staff': typeof DashboardStaffRoute
   '/demo/store': typeof DemoStoreRoute
@@ -232,12 +262,14 @@ export interface FileRoutesByFullPath {
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
   '/example/guitars/$guitarId': typeof ExampleGuitarsGuitarIdRoute
-  '/dashboard/subjects': typeof DashboardSubjectsIndexRoute
+  '/dashboard/asignature': typeof DashboardAsignatureIndexRoute
   '/example/guitars': typeof ExampleGuitarsIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/register': typeof AuthRegisterRoute
   '/dashboard/program': typeof DashboardProgramRoute
   '/dashboard/staff': typeof DashboardStaffRoute
   '/demo/store': typeof DemoStoreRoute
@@ -249,13 +281,15 @@ export interface FileRoutesByTo {
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
   '/example/guitars/$guitarId': typeof ExampleGuitarsGuitarIdRoute
-  '/dashboard/subjects': typeof DashboardSubjectsIndexRoute
+  '/dashboard/asignature': typeof DashboardAsignatureIndexRoute
   '/example/guitars': typeof ExampleGuitarsIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/register': typeof AuthRegisterRoute
   '/dashboard/program': typeof DashboardProgramRoute
   '/dashboard/staff': typeof DashboardStaffRoute
   '/demo/store': typeof DemoStoreRoute
@@ -267,7 +301,7 @@ export interface FileRoutesById {
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
   '/example/guitars/$guitarId': typeof ExampleGuitarsGuitarIdRoute
-  '/dashboard/subjects/': typeof DashboardSubjectsIndexRoute
+  '/dashboard/asignature/': typeof DashboardAsignatureIndexRoute
   '/example/guitars/': typeof ExampleGuitarsIndexRoute
 }
 
@@ -275,6 +309,8 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/auth/login'
+    | '/auth/register'
     | '/dashboard/program'
     | '/dashboard/staff'
     | '/demo/store'
@@ -286,11 +322,13 @@ export interface FileRouteTypes {
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
     | '/example/guitars/$guitarId'
-    | '/dashboard/subjects'
+    | '/dashboard/asignature'
     | '/example/guitars'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth/login'
+    | '/auth/register'
     | '/dashboard/program'
     | '/dashboard/staff'
     | '/demo/store'
@@ -302,11 +340,13 @@ export interface FileRouteTypes {
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
     | '/example/guitars/$guitarId'
-    | '/dashboard/subjects'
+    | '/dashboard/asignature'
     | '/example/guitars'
   id:
     | '__root__'
     | '/'
+    | '/auth/login'
+    | '/auth/register'
     | '/dashboard/program'
     | '/dashboard/staff'
     | '/demo/store'
@@ -318,13 +358,15 @@ export interface FileRouteTypes {
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
     | '/example/guitars/$guitarId'
-    | '/dashboard/subjects/'
+    | '/dashboard/asignature/'
     | '/example/guitars/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthLoginRoute: typeof AuthLoginRoute
+  AuthRegisterRoute: typeof AuthRegisterRoute
   DashboardProgramRoute: typeof DashboardProgramRoute
   DashboardStaffRoute: typeof DashboardStaffRoute
   DemoStoreRoute: typeof DemoStoreRoute
@@ -336,12 +378,14 @@ export interface RootRouteChildren {
   DemoStartApiRequestRoute: typeof DemoStartApiRequestRoute
   DemoStartServerFuncsRoute: typeof DemoStartServerFuncsRoute
   ExampleGuitarsGuitarIdRoute: typeof ExampleGuitarsGuitarIdRoute
-  DashboardSubjectsIndexRoute: typeof DashboardSubjectsIndexRoute
+  DashboardAsignatureIndexRoute: typeof DashboardAsignatureIndexRoute
   ExampleGuitarsIndexRoute: typeof ExampleGuitarsIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthLoginRoute: AuthLoginRoute,
+  AuthRegisterRoute: AuthRegisterRoute,
   DashboardProgramRoute: DashboardProgramRoute,
   DashboardStaffRoute: DashboardStaffRoute,
   DemoStoreRoute: DemoStoreRoute,
@@ -353,7 +397,7 @@ const rootRouteChildren: RootRouteChildren = {
   DemoStartApiRequestRoute: DemoStartApiRequestRoute,
   DemoStartServerFuncsRoute: DemoStartServerFuncsRoute,
   ExampleGuitarsGuitarIdRoute: ExampleGuitarsGuitarIdRoute,
-  DashboardSubjectsIndexRoute: DashboardSubjectsIndexRoute,
+  DashboardAsignatureIndexRoute: DashboardAsignatureIndexRoute,
   ExampleGuitarsIndexRoute: ExampleGuitarsIndexRoute,
 }
 
@@ -368,6 +412,8 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/auth/login",
+        "/auth/register",
         "/dashboard/program",
         "/dashboard/staff",
         "/demo/store",
@@ -379,12 +425,18 @@ export const routeTree = rootRoute
         "/demo/start/api-request",
         "/demo/start/server-funcs",
         "/example/guitars/$guitarId",
-        "/dashboard/subjects/",
+        "/dashboard/asignature/",
         "/example/guitars/"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/auth/login": {
+      "filePath": "auth/login.tsx"
+    },
+    "/auth/register": {
+      "filePath": "auth/register.tsx"
     },
     "/dashboard/program": {
       "filePath": "dashboard/program.tsx"
@@ -393,10 +445,10 @@ export const routeTree = rootRoute
       "filePath": "dashboard/staff.tsx"
     },
     "/demo/store": {
-      "filePath": "demo.store.tsx"
+      "filePath": "demo/store.tsx"
     },
     "/demo/tanstack-query": {
-      "filePath": "demo.tanstack-query.tsx"
+      "filePath": "demo/tanstack-query.tsx"
     },
     "/example/chat": {
       "filePath": "example.chat.tsx"
@@ -405,22 +457,22 @@ export const routeTree = rootRoute
       "filePath": "dashboard/index.tsx"
     },
     "/demo/form/address": {
-      "filePath": "demo.form.address.tsx"
+      "filePath": "demo/form.address.tsx"
     },
     "/demo/form/simple": {
-      "filePath": "demo.form.simple.tsx"
+      "filePath": "demo/form.simple.tsx"
     },
     "/demo/start/api-request": {
-      "filePath": "demo.start.api-request.tsx"
+      "filePath": "demo/start.api-request.tsx"
     },
     "/demo/start/server-funcs": {
-      "filePath": "demo.start.server-funcs.tsx"
+      "filePath": "demo/start.server-funcs.tsx"
     },
     "/example/guitars/$guitarId": {
       "filePath": "example.guitars/$guitarId.tsx"
     },
-    "/dashboard/subjects/": {
-      "filePath": "dashboard/subjects/index.tsx"
+    "/dashboard/asignature/": {
+      "filePath": "dashboard/asignature/index.tsx"
     },
     "/example/guitars/": {
       "filePath": "example.guitars/index.tsx"

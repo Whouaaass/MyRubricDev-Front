@@ -1,16 +1,16 @@
-import { createFileRoute } from '@tanstack/react-router'
-import uniLogo from "/unicauca-logo.png"
-import Layout from '@/components/templates/Layout'
-import UniversityLogo from '@/components/atoms/UniversityLogo'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/')({
+  loader: () => {
+    throw redirect({
+      to: '/auth/login',
+    })
+  },
   component: App,
 })
 
 function App() {
-  return (
-    <Layout appName='MyRubricDev' logo={<UniversityLogo/>} >
-      <div></div>      
-    </Layout>
-  )
+  return <div>
+    App Works!!!
+  </div>
 }

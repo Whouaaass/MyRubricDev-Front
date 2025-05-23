@@ -16,7 +16,7 @@ const ERROR_CATCHING_ROUTES = [
 
 // Create axios instance
 const axiosInstance: AxiosInstance = axios.create({
-    baseURL: process.env.API_URL || 'http://localhost:3000',
+    baseURL: process.env.API_URL || 'http://localhost:8080',
     timeout: 5000,
     headers: {
         'Content-Type': 'application/json',

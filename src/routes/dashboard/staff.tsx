@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import Staff from '@/components/templates/Staff'
-import Layout from '@/components/templates/Layout'
+import DashboardLayout from '@/components/templates/DashboardLayout'
 import UniversityLogo from '@/components/atoms/UniversityLogo'
 
 export const Route = createFileRoute('/dashboard/staff')({
@@ -26,8 +26,8 @@ const STAFF_DUMMY_DATA = [
 
 function RouteComponent() {
   return (
-    <Layout appName="MyRubricDev" title='Personal Académico' logo={<UniversityLogo/>}>
+    <DashboardLayout appName="MyRubricDev" title='Personal Académico' logo={<UniversityLogo/>}>
       <Staff professors={STAFF_DUMMY_DATA} />
-    </Layout>
+    </DashboardLayout>
   )
 }

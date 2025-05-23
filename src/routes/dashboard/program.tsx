@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import UniversityLogo from '@/components/atoms/UniversityLogo'
 import SectionHeader from '@/components/molecules/SectionHeader'
-import Layout from '@/components/templates/Layout'
+import DashboardLayout from '@/components/templates/DashboardLayout'
 import CompetencyCard from '@/components/molecules/CompetencyCard'
 import Program from '@/components/templates/Programa'
 
@@ -43,7 +43,7 @@ function RouteComponent() {
   const buttons = [
     { label: "Crear", onClick: () => console.log("Crear") },
   ]
-  return <Layout appName="MyRubricDev" title='Gestión de Programa' logo={<UniversityLogo/>}>
+  return <DashboardLayout appName="MyRubricDev" title='Gestión de Programa' logo={<UniversityLogo/>}>
      <Program asignatures={ASIGNATURAS_DUMMY_DATA} competencies={COMPETENCIES_DUMMY_DATA} />
-  </Layout>
+  </DashboardLayout>
 }
