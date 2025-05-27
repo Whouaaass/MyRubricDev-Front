@@ -22,7 +22,7 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
     { name: 'Inicio', icon: <Home />, onClick: () => handleNavigation('/dashboard') },
     { name: 'Personal', icon: <UserCheck />, onClick: () => handleNavigation('/dashboard/staff') },
     { name: 'Programa', icon: <Briefcase />, onClick: () => handleNavigation('/dashboard/program') },
-    { name: 'Asignaturas', icon: <BookOpen />, onClick: () => handleNavigation('/dashboard/asignature') },
+    { name: 'Asignaturas', icon: <BookOpen />, onClick: () => handleNavigation('/dashboard/subject') },
   ]
 
   return (

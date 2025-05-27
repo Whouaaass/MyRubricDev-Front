@@ -4,18 +4,45 @@ export class AppLocalStorage {
   static readonly AUTHENTICATED = 'session-authenticated';
 
   static saveToken(token: string) {
-    localStorage.setItem(this.TOKEN, token);
+    this.setItem(this.TOKEN, token);
   }
 
   static getToken() {
-    return localStorage.getItem(this.TOKEN);
+    return this.getItem(this.TOKEN);
   }
 
   static removeToken() {
-    localStorage.removeItem(this.TOKEN);
+    this.removeItem(this.TOKEN);
   }
 
   static clearSession() {
-    localStorage.removeItem(this.TOKEN);
+    this.removeItem(this.TOKEN);
   }
+
+  /** Safe access to localStorage.setItem */
+  private static setItem(key: string, value: any) {
+    if (typeof window === "undefined") {
+      return;
+    }
+    localStorage.setItem(key, JSON.stringify(value));
+  }
+
+  /** Safe access to localStorage.getItem */
+  private static getItem(key: string) {
+    if (typeof window === "undefined") {
+      return null;
+    }
+    const value = localStorage.getItem(key);
+    return value ? JSON.parse(value) : null;
+  }
+
+  /** Safe access to localStorage.removeItem */
+  private static removeItem(key: string) {
+    if (typeof window === "undefined") {
+      return;
+    }
+    localStorage.removeItem(key);
+  }
+
+  
 }

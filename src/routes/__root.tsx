@@ -4,7 +4,6 @@ import {
   Scripts,
   createRootRouteWithContext,
 } from '@tanstack/react-router'
-import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 
 import appCss from '../styles.css?url'
 
@@ -44,7 +43,6 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 
       <Outlet />
       {/* <TanStackRouterDevtools /> */}
-
       {/* <LayoutAddition /> */}
     </RootDocument>
   ),

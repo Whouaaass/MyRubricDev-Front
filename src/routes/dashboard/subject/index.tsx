@@ -5,7 +5,7 @@ import AsignatureCard from '@/components/molecules/AsignatureCard'
 import { ElementGrid } from '@/components/layout/ElementGrid'
 import OptionsHover from '@/components/molecules/decorators/OptionsHover'
 
-export const Route = createFileRoute('/dashboard/asignature/')({
+export const Route = createFileRoute('/dashboard/subject/')({
   component: RouteComponent,
 })
 

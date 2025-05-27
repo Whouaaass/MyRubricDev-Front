@@ -21,7 +21,7 @@ import { Route as DashboardProgramImport } from './routes/dashboard/program'
 import { Route as AuthRegisterImport } from './routes/auth/register'
 import { Route as AuthLoginImport } from './routes/auth/login'
 import { Route as ExampleGuitarsIndexImport } from './routes/example.guitars/index'
-import { Route as DashboardAsignatureIndexImport } from './routes/dashboard/asignature/index'
+import { Route as DashboardSubjectIndexImport } from './routes/dashboard/subject/index'
 import { Route as ExampleGuitarsGuitarIdImport } from './routes/example.guitars/$guitarId'
 import { Route as DemoStartServerFuncsImport } from './routes/demo/start.server-funcs'
 import { Route as DemoStartApiRequestImport } from './routes/demo/start.api-request'
@@ -90,9 +90,9 @@ const ExampleGuitarsIndexRoute = ExampleGuitarsIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const DashboardAsignatureIndexRoute = DashboardAsignatureIndexImport.update({
-  id: '/dashboard/asignature/',
-  path: '/dashboard/asignature/',
+const DashboardSubjectIndexRoute = DashboardSubjectIndexImport.update({
+  id: '/dashboard/subject/',
+  path: '/dashboard/subject/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -228,11 +228,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExampleGuitarsGuitarIdImport
       parentRoute: typeof rootRoute
     }
-    '/dashboard/asignature/': {
-      id: '/dashboard/asignature/'
-      path: '/dashboard/asignature'
-      fullPath: '/dashboard/asignature'
-      preLoaderRoute: typeof DashboardAsignatureIndexImport
+    '/dashboard/subject/': {
+      id: '/dashboard/subject/'
+      path: '/dashboard/subject'
+      fullPath: '/dashboard/subject'
+      preLoaderRoute: typeof DashboardSubjectIndexImport
       parentRoute: typeof rootRoute
     }
     '/example/guitars/': {
@@ -262,7 +262,7 @@ export interface FileRoutesByFullPath {
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
   '/example/guitars/$guitarId': typeof ExampleGuitarsGuitarIdRoute
-  '/dashboard/asignature': typeof DashboardAsignatureIndexRoute
+  '/dashboard/subject': typeof DashboardSubjectIndexRoute
   '/example/guitars': typeof ExampleGuitarsIndexRoute
 }
 
@@ -281,7 +281,7 @@ export interface FileRoutesByTo {
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
   '/example/guitars/$guitarId': typeof ExampleGuitarsGuitarIdRoute
-  '/dashboard/asignature': typeof DashboardAsignatureIndexRoute
+  '/dashboard/subject': typeof DashboardSubjectIndexRoute
   '/example/guitars': typeof ExampleGuitarsIndexRoute
 }
 
@@ -301,7 +301,7 @@ export interface FileRoutesById {
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
   '/example/guitars/$guitarId': typeof ExampleGuitarsGuitarIdRoute
-  '/dashboard/asignature/': typeof DashboardAsignatureIndexRoute
+  '/dashboard/subject/': typeof DashboardSubjectIndexRoute
   '/example/guitars/': typeof ExampleGuitarsIndexRoute
 }
 
@@ -322,7 +322,7 @@ export interface FileRouteTypes {
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
     | '/example/guitars/$guitarId'
-    | '/dashboard/asignature'
+    | '/dashboard/subject'
     | '/example/guitars'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -340,7 +340,7 @@ export interface FileRouteTypes {
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
     | '/example/guitars/$guitarId'
-    | '/dashboard/asignature'
+    | '/dashboard/subject'
     | '/example/guitars'
   id:
     | '__root__'
@@ -358,7 +358,7 @@ export interface FileRouteTypes {
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
     | '/example/guitars/$guitarId'
-    | '/dashboard/asignature/'
+    | '/dashboard/subject/'
     | '/example/guitars/'
   fileRoutesById: FileRoutesById
 }
@@ -378,7 +378,7 @@ export interface RootRouteChildren {
   DemoStartApiRequestRoute: typeof DemoStartApiRequestRoute
   DemoStartServerFuncsRoute: typeof DemoStartServerFuncsRoute
   ExampleGuitarsGuitarIdRoute: typeof ExampleGuitarsGuitarIdRoute
-  DashboardAsignatureIndexRoute: typeof DashboardAsignatureIndexRoute
+  DashboardSubjectIndexRoute: typeof DashboardSubjectIndexRoute
   ExampleGuitarsIndexRoute: typeof ExampleGuitarsIndexRoute
 }
 
@@ -397,7 +397,7 @@ const rootRouteChildren: RootRouteChildren = {
   DemoStartApiRequestRoute: DemoStartApiRequestRoute,
   DemoStartServerFuncsRoute: DemoStartServerFuncsRoute,
   ExampleGuitarsGuitarIdRoute: ExampleGuitarsGuitarIdRoute,
-  DashboardAsignatureIndexRoute: DashboardAsignatureIndexRoute,
+  DashboardSubjectIndexRoute: DashboardSubjectIndexRoute,
   ExampleGuitarsIndexRoute: ExampleGuitarsIndexRoute,
 }
 
@@ -425,7 +425,7 @@ export const routeTree = rootRoute
         "/demo/start/api-request",
         "/demo/start/server-funcs",
         "/example/guitars/$guitarId",
-        "/dashboard/asignature/",
+        "/dashboard/subject/",
         "/example/guitars/"
       ]
     },
@@ -471,8 +471,8 @@ export const routeTree = rootRoute
     "/example/guitars/$guitarId": {
       "filePath": "example.guitars/$guitarId.tsx"
     },
-    "/dashboard/asignature/": {
-      "filePath": "dashboard/asignature/index.tsx"
+    "/dashboard/subject/": {
+      "filePath": "dashboard/subject/index.tsx"
     },
     "/example/guitars/": {
       "filePath": "example.guitars/index.tsx"
