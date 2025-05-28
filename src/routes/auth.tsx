@@ -1,14 +1,15 @@
 import { Outlet, createFileRoute, redirect } from '@tanstack/react-router'
 import { AppLocalStorage } from '@/integrations/localStorage/AppLocalStorage'
-import { useSessionStore } from '@/store/sessionStore'
+import { isAuthenticated, useSessionStore } from '@/store/sessionStore'
 
 export const Route = createFileRoute('/auth')({
   component: RouteComponent,
-  beforeLoad: ({ context }) => {
-    const session = context.sessionStore.getState()
-    const token = AppLocalStorage.getToken()
-    console.log('auth Loader', session)
-    console.log('auth Loader', token)
+  beforeLoad: () => {    
+    if (isAuthenticated()) {
+      throw redirect({
+        to: "/dashboard/home"
+      })
+    }
   },
 })
 
