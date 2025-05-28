@@ -26,7 +26,7 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
   ]
 
   return (
-    <nav className="flex-1 overflow-y-auto">
+    <nav className="flex-1 overflow-y-auto overflow-x-hidden">
       <ul className="py-4">
         {items.map((item, index) => (
           <SidebarLink
