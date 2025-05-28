@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+body {
+  @apply m-0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+@theme {
+  --color-primary: #000066;
+  --color-secondary: #9D0311;
+  --color-background2: #ECF0FF;
+  --color-background: #F2F2F9;
+  --color-actionprimary: #5C5FC5;
+  --color-actionsecondary: #9D0311;
+  --color-actionsuccess: #0006B5;
+  --color-actionwarning: #C08B35;
+  --color-actiondanger: #FF4343;
+  --color-gray: #6A6A84;
+  --color-dark: #191926;
+
+  --font-title: "Inria Sans", sans-serif;
+  --font-regular: "Karla", sans-serif;
+  
+}
