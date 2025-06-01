@@ -5,35 +5,22 @@ import Button from '../atoms/form/Button'
 import FormField from '../molecules/FormField'
 import { authApi } from '@/integrations/api/index'
 
+import CustomZodValidations from '@/integrations/zod/CustomZodValidations'
+import { useErrorStore } from '@/integrations/error-display-handler/ErrorStore'
+
 interface RegisterFormProps {
   title?: string
 }
-
-const validationSchema = z
-  .object({
-    email: z
-      .string()
-      .email('El correo electrónico no es válido')
-      .min(1, 'El correo electrónico es requerido'),
-    password: z
-      .string()
-      .min(8, 'La contraseña debe tener al menos 8 caracteres')
-      .max(20, 'La contraseña no puede tener más de 20 caracteres'),
-    confirmPassword: z.string().min(1, 'Debe confirmar la contraseña'),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: 'Las contraseñas no coinciden',
-    path: ['confirmPassword'],
-  })
 
 const RegisterForm: React.FC<RegisterFormProps> = ({
   title = 'Registro de usuario',
 }) => {
   const router = useRouter()
+  const errorStore = useErrorStore()
 
   const form = useForm({
     defaultValues: {
-      email: '',
+      username: '',
       password: '',
       confirmPassword: '',
     },
@@ -41,11 +28,12 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
       const { value: values } = props
       console.log('Form submitted:', values)
       try {
-        const data = await authApi.register(values.email, values.password)
+        const data = await authApi.register(values.username, values.password)
         console.log('Login successful:', data)
         router.navigate({ to: '/auth/login' })
       } catch (error) {
         console.error('Error during registration:', error)
+        errorStore.setError(error)
       }
     },
     onSubmitInvalid(props) {
@@ -73,12 +61,12 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
         {title}
       </h1>
       <div className="w-full max-w-96 sm:w-auto sm:flex-1/2 flex flex-col m-auto gap-y-3">
-        <form.Field name="email">
+        <form.Field name="username">
           {(field) => (
             <FormField
               field={field}
-              label="Correo Electrónico"
-              placeholder="Ingrese su correo electrónico"
+              label="Nombre de usuario"
+              placeholder="Ingrese su nombre de usuario"
             ></FormField>
           )}
         </form.Field>
@@ -122,5 +110,17 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
     </form>
   )
 }
+
+// Form Validations
+const validationSchema = z
+  .object({
+    username: CustomZodValidations.username(),
+    password: CustomZodValidations.password(),
+    confirmPassword: CustomZodValidations.passwordConfirmation(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: 'Las contraseñas no coinciden',
+    path: ['confirmPassword'],
+  })
 
 export default RegisterForm

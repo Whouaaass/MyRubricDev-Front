@@ -3,35 +3,25 @@ import { z } from 'zod'
 import { useRouter } from '@tanstack/react-router'
 import Button from '../atoms/form/Button'
 import FormField from '../molecules/FormField'
+import CustomZodValidations from '@/integrations/zod/CustomZodValidations'
 import { useSessionStore } from '@/store/sessionStore'
+import { useErrorStore } from '@/integrations/error-display-handler/ErrorStore'
 
 interface LoginFormProps {
   title?: string
 }
 
-const validationSchema = z.object({
-  email: z
-    .string()
-    .email('El correo electrónico no es válido')
-    .min(1, 'El correo electrónico es requerido'),
-  password: z
-    .string()
-    .min(8, 'La contraseña debe tener al menos 8 caracteres')
-    .max(20, 'La contraseña no puede tener más de 20 caracteres'),
-  // .regex(/[a-zA-Z]/, 'La contraseña debe contener al menos una letra')
-  // .regex(/[0-9]/, 'La contraseña debe contener al menos un número'),
-})
-
 const LoginForm: React.FC<LoginFormProps> = ({
   title = 'Inicio de sesión',
 }) => {
   const router = useRouter()
+  const errorStore = useErrorStore()
 
   const { login } = useSessionStore()
 
   const form = useForm({
     defaultValues: {
-      email: '',
+      username: '',
       password: '',
     },
     onSubmit: async (props) => {
@@ -39,15 +29,15 @@ const LoginForm: React.FC<LoginFormProps> = ({
       console.log('Form submitted:', values)
       // Handle form submission here
       try {
-        const data = await login(values.email, values.password)
+        const data = await login(values.username, values.password)
         console.log('Login successful:', data)
         // Navigate to the dashboard or another page after successful login
         router.navigate({
           to: '/dashboard/home',
         })
       } catch (error) {
-        console.error('Error during login:', error)
-        // Handle login error here
+        // this dispatchs the error and will be managed by a modal
+        errorStore.setError(error)
       }
     },
     onSubmitInvalid(props) {
@@ -75,12 +65,12 @@ const LoginForm: React.FC<LoginFormProps> = ({
         {title}
       </h1>
       <div className="w-full max-w-96 sm:w-auto sm:flex-1/2 flex flex-col m-auto gap-y-3">
-        <form.Field name="email">
+        <form.Field name="username">
           {(field) => (
             <FormField
               field={field}
-              label="Correo Electrónico"
-              placeholder="Ingrese su correo electrónico"
+              label="Nombre de usuario"
+              placeholder="Ingrese su nombre de usuario"
             ></FormField>
           )}
         </form.Field>
@@ -108,7 +98,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
           variant="outlined"
           onClick={() =>
             router.navigate({
-              to: '/auth/register'              
+              to: '/auth/register',
             })
           }
           className="w-1/2"
@@ -119,5 +109,11 @@ const LoginForm: React.FC<LoginFormProps> = ({
     </form>
   )
 }
+
+// Validaciones del formulario
+const validationSchema = z.object({
+  username: CustomZodValidations.username(),
+  password: CustomZodValidations.password()
+})
 
 export default LoginForm

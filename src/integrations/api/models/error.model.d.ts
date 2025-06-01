@@ -1,4 +1,5 @@
-interface ApiErrorResponse {
+/** Error the api returns */
+export interface ApiErrorResponse {
   details: string
   errorCode: string
   fieldErrors: null | Record<string, string>

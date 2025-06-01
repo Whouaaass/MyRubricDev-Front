@@ -2,14 +2,6 @@ import axios from 'axios';
 import type { AxiosError, AxiosInstance } from 'axios';
 import { AppLocalStorage } from '@/integrations/localStorage/AppLocalStorage';
 
-// Create a store for error handling (you might want to adjust this based on your state management solution)
-export const axiosErrorStore = {
-    setError: (error: string) => {
-        console.error('API Error:', error);
-        // Implement your error handling logic here
-    }
-};
-
 // Routes that should trigger error handling
 const ERROR_CATCHING_ROUTES = [
     '/api/v1/',  // Add your specific routes here
@@ -48,7 +40,7 @@ axiosInstance.interceptors.response.use(
         );
 
         if (shouldCatchError) {
-            let errorMessage = 'An unexpected error occurred';
+            // let errorMessage = 'An unexpected error occurred';
 
             if (error.response) {
                 // The request was made and the server responded with a status code
@@ -63,7 +55,7 @@ axiosInstance.interceptors.response.use(
             }
 
             // Store the error
-            axiosErrorStore.setError(errorMessage);
+            // -- setError
         }
 
         return Promise.reject(error);
