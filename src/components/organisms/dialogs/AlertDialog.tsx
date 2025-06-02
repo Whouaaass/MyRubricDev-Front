@@ -1,13 +1,9 @@
 import React from 'react'
-import {
-  AlertCircle,
-  AlertTriangle,
-  CheckCircle,
-  Info,
-} from 'lucide-react'
+import { AlertCircle, AlertTriangle, CheckCircle, Info } from 'lucide-react'
 import AlertDialogBody from '../../molecules/dialog/AlertDialogBody'
 import CustomDialogHeader from '@/components/molecules/dialog/CustomDialogHeader'
 import CustomDialogFooter from '@/components/molecules/dialog/CustomDialogFooter'
+import DialogContainer from '@/components/molecules/dialog/DialogContainer'
 
 export interface AlertDialogContentProps {
   /** called when close button activated */
@@ -69,27 +65,18 @@ const AlertDialogContent: React.FC<AlertDialogContentProps> = ({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
-      {/* Backdrop */}
-      <div
-        className="absolute inset-0 bg-black opacity-10 transition-opacity"
-        onClick={onClose}
+    <DialogContainer onClose={onClose}>
+      <CustomDialogHeader onClose={onClose} title={title} icon={getIcon()} />
+
+      <AlertDialogBody message={message} />
+
+      <CustomDialogFooter
+        onConfirmation={onConfirmation}
+        onClose={onClose}
+        confirmButtonLabel={confirmButtonLabel}
+        rejectionButtonLabel={rejectionButtonLabel}
       />
-
-      {/* Modal */}
-      <div className="relative bg-background rounded-xl shadow-xl max-w-md w-full mx-4 transform transition-all">
-        <CustomDialogHeader onClose={onClose} title={title} icon={getIcon()} />
-
-        <AlertDialogBody message={message} />
-
-        <CustomDialogFooter
-          onConfirmation={onConfirmation}
-          onClose={onClose}
-          confirmButtonLabel={confirmButtonLabel}
-          rejectionButtonLabel={rejectionButtonLabel}
-        />
-      </div>
-    </div>
+    </DialogContainer>
   )
 }
 

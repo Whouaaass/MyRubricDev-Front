@@ -1,12 +1,13 @@
 // molecules/DialogHeader.tsx
 import React from 'react'
 import { XSquare } from 'lucide-react'
+import type {MouseEventHandler} from 'react';
 import Text from '@/components/atoms/Text'
 
 export interface CustomDialogHeaderProps {
   title?: string
   icon?: React.ReactNode
-  onClose: () => void
+  onClose: MouseEventHandler
 }
 
 const CustomDialogHeader: React.FC<CustomDialogHeaderProps> = ({

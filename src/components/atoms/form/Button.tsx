@@ -13,7 +13,7 @@ const Button: React.FC<ButtonProps> = ({
   className = '',
 }) => {
   const baseClasses =
-    'px-4 py-2 min-h-11 rounded-xl hover:-translate-y-0.5 hover:shadow-md font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 active:scale-95 transition-all duration-200'
+    'px-4 py-2 min-h-11 rounded-xl cursor-pointer hover:-translate-y-0.5 hover:shadow-md font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 active:scale-95 transition-all duration-200'
   const variants = {
     primary:
       'bg-actionprimary text-white hover:shadow-gray focus:ring-actionprimary disabled:bg-gray disabled:cursor-not-allowed',

@@ -1,10 +1,11 @@
 // molecules/AlertDialogFooter.tsx
 import React from 'react'
+import type { MouseEventHandler } from 'react'
 import Button from '@/components/atoms/form/Button'
 
 export interface CustomDialogFooterProps {
-  onConfirmation?: () => void
-  onClose: () => void
+  onConfirmation?: MouseEventHandler
+  onClose: MouseEventHandler
   confirmButtonLabel?: string
   rejectionButtonLabel?: string
 }
