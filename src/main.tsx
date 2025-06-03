@@ -12,6 +12,7 @@ import * as SessionStore from '@/store/sessionStore'
 
 // Import the generated route tree
 import './styles.css'
+import './integrations/toastify/toastify.css'
 
 // Create a new router instance
 const router = createTanstackRouter({

@@ -65,19 +65,18 @@ const CreateDocenteDialog: React.FC<CreateDocenteDialogProps> = ({
   })
 
   return (
-    <DialogContainer onClose={onClose}>
+    <DialogContainer onClose={onClose} size="lg">
       <CustomDialogHeader
         title="Crear Docentes"
         onClose={onClose}
       ></CustomDialogHeader>
-      <div className="relative p-6 flex-col max-h-full overflow-scroll overflow-x-hidden">
+      <div className="flex-1 overflow-y-auto p-6">
         <form
           onSubmit={(e) => {
-            e.preventDefault()
+            e.preventDefault()            
             e.stopPropagation()
             form.handleSubmit()
           }}
-          className="gap-4"
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <form.Field name="name">

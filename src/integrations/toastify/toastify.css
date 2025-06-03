@@ -1,0 +1,112 @@
+/* Toast Container */
+.Toastify__toast-container {
+  z-index: 9999;
+  padding: 1rem;
+}
+
+/* Toast Box */
+.Toastify__toast {
+  background-color: #eef1ff;
+  color: #000;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: sans-serif;
+  position: relative;
+  overflow: hidden;
+  min-height: auto;
+}
+
+/* Toast content styling */
+.Toastify__toast-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding-right: 2rem; /* space for close button */
+}
+
+.Toastify__toast-body > div {
+  margin: 0;
+}
+
+/* Optional: differentiate title and message if you set it manually */
+.Toastify__toast-body strong {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.Toastify__toast-body span {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+/* Close button container */
+.Toastify__close-button {
+  background-color: #5e5ce6;
+  color: white;
+  border: none;
+  border-radius: 0 16px 16px 0;
+  padding: 0.5rem 0.75rem;
+  font-size: 1.1rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+.Toastify__close-button:hover,
+.Toastify__close-button:focus {
+  background-color: #4a49c4;
+}
+
+/* Remove default SVG if needed */
+.Toastify__close-button > svg {
+  display: none;
+}
+
+/* Show '×' character instead */
+.Toastify__close-button::before {
+  content: '×';
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+/** handle the notification color and the text color based on the theme **/
+.Toastify__toast-theme--dark {
+}
+.Toastify__toast-theme--light {
+}
+.Toastify__toast-theme--colored.Toastify__toast--default {
+}
+.Toastify__toast-theme--colored.Toastify__toast--info {
+}
+.Toastify__toast-theme--colored.Toastify__toast--success {
+}
+.Toastify__toast-theme--colored.Toastify__toast--warning {
+}
+.Toastify__toast-theme--colored.Toastify__toast--error {
+}
+
+.Toastify__progress-bar--rtl {
+}
+.Toastify__progress-bar-theme--light {
+}
+.Toastify__progress-bar-theme--dark {
+}
+.Toastify__progress-bar--info {
+}
+.Toastify__progress-bar--success {
+}
+.Toastify__progress-bar--warning {
+}
+.Toastify__progress-bar--error {
+}

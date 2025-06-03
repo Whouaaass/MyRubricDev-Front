@@ -1,8 +1,9 @@
 import { useForm } from '@tanstack/react-form'
 import { z } from 'zod'
 import { useRouter } from '@tanstack/react-router'
-import Button from '../atoms/form/Button'
-import FormField from '../molecules/FormField'
+import Text from '@/components/atoms/Text'
+import Button from '@/components/atoms/form/Button'
+import FormField from '@/components/molecules/form/InputFormField'
 import { authApi } from '@/integrations/api/index'
 
 import CustomZodValidations from '@/integrations/zod/CustomZodValidations'
@@ -57,9 +58,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
       }}
       className="flex flex-row flex-wrap max-w-2xl w-full gap-y-15"
     >
-      <h1 className="w-full sm:w-auto sm:flex-1/2 text-4xl font-title text-center self-center text-gray-800">
-        {title}
-      </h1>
+      <Text variant="title" className='self-center mx-3'>{title}</Text>
       <div className="w-full max-w-96 sm:w-auto sm:flex-1/2 flex flex-col m-auto gap-y-3">
         <form.Field name="username">
           {(field) => (

@@ -20,7 +20,7 @@ const Text = React.forwardRef<HTMLParagraphElement, TextProps>(
       sectionTitle: 'text-3xl font-regular font-semibold ',
       moduleTitle: 'text-2xl font-regular font-medium text-gray-800',
       default: 'text-base font-regular text-gray-700',
-      body: 'text-base font-regular text-gray-600 leading-relaxed',
+      body: 'font-regular text-gray-600 leading-relaxed',
       caption: 'text-sm font-regular text-gray-500',
     }
 

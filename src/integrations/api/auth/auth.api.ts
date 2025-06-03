@@ -2,21 +2,21 @@ import axiosInstance from '../axiosInstance'
 import type { LoginOkResponse, RegisterOkResponse } from './responses'
 
 
-export async function login(email: string, password: string) {
+export async function login(username: string, password: string) {
   const response = await axiosInstance.post<LoginOkResponse>('/auth/login', {
-    username: email,
+    username: username,
     password: password,
   })
   return response.data
 }
 
-export async function register(email: string, password: string) {
+export async function register(username: string, password: string) {
   const response = await axiosInstance.post<RegisterOkResponse>(
     '/auth/register',
     {
-      username: email,
+      username: username,
       password: password,
-      rol: 'DOCENTE',
+      rol: 'COORDINADOR',
     },
   )
 
