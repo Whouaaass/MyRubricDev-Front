@@ -22,6 +22,7 @@ import { Route as DashboardHomeImport } from './routes/dashboard/home'
 import { Route as AuthRegisterImport } from './routes/auth/register'
 import { Route as AuthLoginImport } from './routes/auth/login'
 import { Route as DashboardSubjectIndexImport } from './routes/dashboard/subject/index'
+import { Route as DashboardSubjectSubjectIdImport } from './routes/dashboard/subject/$subjectId'
 
 // Create/Update Routes
 
@@ -88,6 +89,12 @@ const AuthLoginRoute = AuthLoginImport.update({
 const DashboardSubjectIndexRoute = DashboardSubjectIndexImport.update({
   id: '/subject/',
   path: '/subject/',
+  getParentRoute: () => DashboardRoute,
+} as any)
+
+const DashboardSubjectSubjectIdRoute = DashboardSubjectSubjectIdImport.update({
+  id: '/subject/$subjectId',
+  path: '/subject/$subjectId',
   getParentRoute: () => DashboardRoute,
 } as any)
 
@@ -165,6 +172,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardIndexImport
       parentRoute: typeof DashboardImport
     }
+    '/dashboard/subject/$subjectId': {
+      id: '/dashboard/subject/$subjectId'
+      path: '/subject/$subjectId'
+      fullPath: '/dashboard/subject/$subjectId'
+      preLoaderRoute: typeof DashboardSubjectSubjectIdImport
+      parentRoute: typeof DashboardImport
+    }
     '/dashboard/subject/': {
       id: '/dashboard/subject/'
       path: '/subject'
@@ -196,6 +210,7 @@ interface DashboardRouteChildren {
   DashboardProgramRoute: typeof DashboardProgramRoute
   DashboardStaffRoute: typeof DashboardStaffRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
+  DashboardSubjectSubjectIdRoute: typeof DashboardSubjectSubjectIdRoute
   DashboardSubjectIndexRoute: typeof DashboardSubjectIndexRoute
 }
 
@@ -204,6 +219,7 @@ const DashboardRouteChildren: DashboardRouteChildren = {
   DashboardProgramRoute: DashboardProgramRoute,
   DashboardStaffRoute: DashboardStaffRoute,
   DashboardIndexRoute: DashboardIndexRoute,
+  DashboardSubjectSubjectIdRoute: DashboardSubjectSubjectIdRoute,
   DashboardSubjectIndexRoute: DashboardSubjectIndexRoute,
 }
 
@@ -222,6 +238,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/staff': typeof DashboardStaffRoute
   '/auth/': typeof AuthIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/subject/$subjectId': typeof DashboardSubjectSubjectIdRoute
   '/dashboard/subject': typeof DashboardSubjectIndexRoute
 }
 
@@ -234,6 +251,7 @@ export interface FileRoutesByTo {
   '/dashboard/staff': typeof DashboardStaffRoute
   '/auth': typeof AuthIndexRoute
   '/dashboard': typeof DashboardIndexRoute
+  '/dashboard/subject/$subjectId': typeof DashboardSubjectSubjectIdRoute
   '/dashboard/subject': typeof DashboardSubjectIndexRoute
 }
 
@@ -249,6 +267,7 @@ export interface FileRoutesById {
   '/dashboard/staff': typeof DashboardStaffRoute
   '/auth/': typeof AuthIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/subject/$subjectId': typeof DashboardSubjectSubjectIdRoute
   '/dashboard/subject/': typeof DashboardSubjectIndexRoute
 }
 
@@ -265,6 +284,7 @@ export interface FileRouteTypes {
     | '/dashboard/staff'
     | '/auth/'
     | '/dashboard/'
+    | '/dashboard/subject/$subjectId'
     | '/dashboard/subject'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -276,6 +296,7 @@ export interface FileRouteTypes {
     | '/dashboard/staff'
     | '/auth'
     | '/dashboard'
+    | '/dashboard/subject/$subjectId'
     | '/dashboard/subject'
   id:
     | '__root__'
@@ -289,6 +310,7 @@ export interface FileRouteTypes {
     | '/dashboard/staff'
     | '/auth/'
     | '/dashboard/'
+    | '/dashboard/subject/$subjectId'
     | '/dashboard/subject/'
   fileRoutesById: FileRoutesById
 }
@@ -338,6 +360,7 @@ export const routeTree = rootRoute
         "/dashboard/program",
         "/dashboard/staff",
         "/dashboard/",
+        "/dashboard/subject/$subjectId",
         "/dashboard/subject/"
       ]
     },
@@ -367,6 +390,10 @@ export const routeTree = rootRoute
     },
     "/dashboard/": {
       "filePath": "dashboard/index.tsx",
+      "parent": "/dashboard"
+    },
+    "/dashboard/subject/$subjectId": {
+      "filePath": "dashboard/subject/$subjectId.tsx",
       "parent": "/dashboard"
     },
     "/dashboard/subject/": {

@@ -1,15 +1,17 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, useRouter } from '@tanstack/react-router'
 import UniversityLogo from '@/components/atoms/UniversityLogo'
 import DashboardLayout from '@/components/templates/DashboardLayout'
 import AsignatureCard from '@/components/molecules/AsignatureCard'
 import { ElementGrid } from '@/components/layout/ElementGrid'
-import OptionsHover from '@/components/molecules/decorators/OptionsHover'
 
 export const Route = createFileRoute('/dashboard/subject/')({
   component: RouteComponent,
+  loader: () => ({
+    crumb: "Asignaturas"
+  })
 })
 
-const ASINGATURES_DUMMY = [
+const SUBJECTS_DUMMY = [
   {
     id: '1',
     name: 'Matemáticas',
@@ -49,10 +51,11 @@ const ASINGATURES_DUMMY = [
     id: '8',
     name: 'Música',
     description: 'Asignatura de teoría musical',
-  }
+  },
 ]
 
 function RouteComponent() {
+  const router = useRouter()
   return (
     <DashboardLayout
       appName="MyRubricDev"
@@ -60,14 +63,19 @@ function RouteComponent() {
       logo={<UniversityLogo />}
     >
       <ElementGrid>
-        {ASINGATURES_DUMMY.map((asignature) => (
-          <OptionsHover>
-            <AsignatureCard
-              key={asignature.id}
-              title={asignature.name}
-              description={asignature.description}
-            />
-          </OptionsHover>
+        {SUBJECTS_DUMMY.map((asignature) => (
+          <AsignatureCard
+            key={asignature.id}
+            title={asignature.name}
+            description={asignature.description}
+            className="hover:shadow-md cursor-pointer"
+            onClick={() =>  router.navigate({
+              to: "/dashboard/subject/$subjectId",
+              params: {
+                subjectId: asignature.name
+              }
+            })}
+          />
         ))}
       </ElementGrid>
     </DashboardLayout>

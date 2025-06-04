@@ -66,12 +66,12 @@ const DashboardLayout: React.FC<LayoutProps> = ({
       <Sidebar appName={appName} logo={logo} />
 
       {/* Main content container */}
-      <div className="flex-1 flex flex-col transition-all duration-300">
+      <div className="flex-1 flex flex-col max-h-screen transition-all duration-300">
         {/* Header */}
         <Header title={title} appName={appName} logo={logo} />
 
         {/* Main content */}
-        <main className="font-regular flex-1 p-4 md:p-6 overflow-auto">
+        <main className="font-regular flex-1 h-full  p-4 md:p-6 overflow-auto">
           {children}
         </main>
       </div>

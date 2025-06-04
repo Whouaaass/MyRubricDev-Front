@@ -3,17 +3,21 @@ import AsignatureCard from '../molecules/AsignatureCard'
 import CompetencyCard from '../molecules/CompetencyCard'
 import SectionHeader from '../molecules/SectionHeader'
 
+type CompetencyProp = {
+  id: number,
+  title: string,
+  description: string
+}
+
+type AsignatureProp = {
+  id: number,
+  title: string,
+  description: string
+}
+
 interface ProgramaProps {
-  competencies: Array<{
-    id: number
-    title: string
-    description: string
-  }>
-  asignatures: Array<{
-    id: number
-    title: string
-    description: string
-  }>
+  competencies: Array<CompetencyProp>
+  asignatures: Array<AsignatureProp>
 }
 
 const Program: React.FC<ProgramaProps> = ({ competencies, asignatures }) => {

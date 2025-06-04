@@ -1,4 +1,5 @@
-import Button from "@/components/atoms/form/Button"
+import type {ButtonProps} from '@/components/atoms/form/Button';
+import Button from '@/components/atoms/form/Button'
 
 interface SectionHeaderProps {
   title: string
@@ -6,6 +7,7 @@ interface SectionHeaderProps {
   buttons?: Array<{
     label: string
     onClick: () => void
+    variant?: ButtonProps['variant']
   }>
 }
 
@@ -20,7 +22,9 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
       {description ?? <p>{description}</p>}
       <div className="flex flex-col">
         {buttons.map((button, index) => (
-          <Button key={index} onClick={button.onClick}>{button.label}</Button>
+          <Button key={index} variant={button.variant} onClick={button.onClick}>
+            {button.label}
+          </Button>
         ))}
       </div>
     </div>

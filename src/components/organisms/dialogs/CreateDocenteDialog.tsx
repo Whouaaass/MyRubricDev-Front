@@ -65,7 +65,7 @@ const CreateDocenteDialog: React.FC<CreateDocenteDialogProps> = ({
   })
 
   return (
-    <DialogContainer onClose={onClose} size="lg">
+    <DialogContainer onClose={onClose} className='max-w-xl'>
       <CustomDialogHeader
         title="Crear Docentes"
         onClose={onClose}
