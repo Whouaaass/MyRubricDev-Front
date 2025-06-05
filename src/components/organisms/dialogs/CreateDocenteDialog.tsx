@@ -99,7 +99,7 @@ const CreateDocenteDialog: React.FC<CreateDocenteDialogProps> = ({
                 <InputFormField
                   field={field}
                   label="Correo académico"
-                  placeholder="correo@institucion.edu"
+                  placeholder="ejemplo@unicauca.edu.co"
                   type="email"
                   required
                 />
@@ -192,7 +192,7 @@ const CreateDocenteDialog: React.FC<CreateDocenteDialogProps> = ({
 const validationSchema = z.object({
   nombre: CustomZodValidations.name(),
   apellido: CustomZodValidations.lastname(),
-  correoAcademico: CustomZodValidations.email(),
+  correoAcademico: CustomZodValidations.academicMail(),
   tipoIdentificacion: CustomZodValidations.identificationType(),
   identificacion: CustomZodValidations.identification(),
   tipoDocente: CustomZodValidations.docenteType(),

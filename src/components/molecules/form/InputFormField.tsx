@@ -1,6 +1,7 @@
 import type { FieldApi } from '@tanstack/react-form'
 import Label from '@/components/atoms/form/Label'
 import Input from '@/components/atoms/form/Input'
+import Textarea from '@/components/atoms/form/Textarea'
 import ErrorMessage from '@/components/atoms/form/ErrorMessage'
 
 interface BaseFormFieldProps {
@@ -8,11 +9,13 @@ interface BaseFormFieldProps {
   type?: string
   placeholder?: string
   value?: string
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
-  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void
+  onChange?: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  onBlur?: (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   error?: string
   required?: boolean
   disabled?: boolean
+  multiline?: boolean
+  rows?: number
 }
 
 interface WithFieldProps extends BaseFormFieldProps {
@@ -47,30 +50,65 @@ const FormField: React.FC<FormFieldProps> = ({
   error,
   required = false,
   disabled = false,
+  multiline = false,
+  rows = 4,
 }) => {  
   const hasError = field ? (field.state.meta.errors.length > 0 && field.state.meta.isBlurred) : !!error
-  return <div className="mb-1">
-    <Label htmlFor={id} required={required}>
-      {label}
-    </Label>    {field ? (
-      <Input
-        id={field.name}
-        name={field.name}
-        type={type}
-        placeholder={placeholder}
-        value={field.state.value}
-        onChange={(e) =>
-          field.handleChange(
-            type === 'number'
-              ? parseFloat(e.target.value) || 0
-              : e.target.value,
-          )
-        }
-        onBlur={field.handleBlur}
-        hasError={hasError}
-        disabled={disabled}
-      ></Input>
-    ) : (
+  
+  const renderField = () => {
+    if (multiline) {
+      if (field) {
+        return (
+          <Textarea
+            id={field.name}
+            name={field.name}
+            placeholder={placeholder}
+            value={field.state.value}
+            onChange={(e) => field.handleChange(e.target.value)}
+            onBlur={field.handleBlur}
+            hasError={hasError}
+            disabled={disabled}
+            rows={rows}
+          />
+        )
+      }
+      return (
+        <Textarea
+          id={id}
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+          onBlur={onBlur}
+          hasError={!!error}
+          disabled={disabled}
+          rows={rows}
+        />
+      )
+    }
+    
+    if (field) {
+      return (
+        <Input
+          id={field.name}
+          name={field.name}
+          type={type}
+          placeholder={placeholder}
+          value={field.state.value}
+          onChange={(e) =>
+            field.handleChange(
+              type === 'number'
+                ? parseFloat(e.target.value) || 0
+                : e.target.value,
+            )
+          }
+          onBlur={field.handleBlur}
+          hasError={hasError}
+          disabled={disabled}
+        />
+      )
+    }
+    
+    return (
       <Input
         id={id}
         type={type}
@@ -81,9 +119,18 @@ const FormField: React.FC<FormFieldProps> = ({
         hasError={!!error}
         disabled={disabled}
       />
-    )}
-    {hasError && <ErrorMessage message={getErrorMessage(field, error)} />}
-  </div>
+    )
+  }
+
+  return (
+    <div className="mb-1">
+      <Label htmlFor={id} required={required}>
+        {label}
+      </Label>
+      {renderField()}
+      {hasError && <ErrorMessage message={getErrorMessage(field, error)} />}
+    </div>
+  )
 }
 
 export default FormField

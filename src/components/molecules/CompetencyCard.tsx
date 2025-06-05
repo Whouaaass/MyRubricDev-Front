@@ -3,7 +3,7 @@ import LearningResultCard from './LearningResultCard'
 interface CompetencyCardProps {
   title: string
   description: string
-  className?: string
+  className?: string  
   ras?: Array<LearningResultProp>
 }
 

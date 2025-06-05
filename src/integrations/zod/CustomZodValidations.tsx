@@ -51,6 +51,12 @@ export default class CustomZodValidations {
       )
   }
 
+  static academicMail() {
+    return this.email().refine((val) => val.endsWith('@unicauca.edu.co'), {
+      message: "El dominio debe ser 'unicauca.edu.co'",
+    })
+  }
+
   static docenteType() {
     return z
       .string()

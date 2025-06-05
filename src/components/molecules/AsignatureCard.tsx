@@ -15,11 +15,11 @@ const AsignatureCard: React.FC<AsignatureCardProps> = ({
 }) => {
   return (
     <div
-      className={`bg-background2 rounded-t-2xl shadow shadow-actionprimary p-4 flex flex-col ${className}`}
+      className={`bg-background2 rounded-t-2xl shadow shadow-actionprimary p-4 flex flex-col hover:shadow-md ${className}`}
       onClick={onClick}
     >
-      <p>{description}</p>
-      <h4 className="text-end font-semibold mt-2">{title}</h4>
+      <h4 className="text-starts font-semibold">{title}</h4>
+      <p className="mt-1">{description}</p>
     </div>
   )
 }

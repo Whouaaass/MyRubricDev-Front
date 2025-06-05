@@ -4,14 +4,14 @@ import CompetencyCard from '../molecules/CompetencyCard'
 import SectionHeader from '../molecules/SectionHeader'
 
 type CompetencyProp = {
-  id: number,
-  title: string,
+  id: number
+  title: string
   description: string
 }
 
 type AsignatureProp = {
-  id: number,
-  title: string,
+  id: number
+  title: string
   description: string
 }
 
@@ -28,21 +28,31 @@ const Program: React.FC<ProgramaProps> = ({ competencies, asignatures }) => {
       <SectionHeader title="Competencias" buttons={competencyButtons} />
       <ElementGrid>
         {competencies.map((competency) => (
-          <CompetencyCard
-            title={competency.title}
-            description={competency.description}
+          <div
             key={competency.id}
-          ></CompetencyCard>
+            className="cursor-pointer"
+            onClick={() => {}}
+          >
+            <CompetencyCard
+              title={competency.title}
+              description={competency.description}
+            ></CompetencyCard>
+          </div>
         ))}
       </ElementGrid>
       <SectionHeader title="Asignaturas" buttons={asignatureButtons} />
       <ElementGrid>
         {asignatures.map((asignature) => (
-          <AsignatureCard
-            title={asignature.title}
-            description={asignature.description}
+          <div
             key={asignature.id}
-          ></AsignatureCard>
+            className="cursor-pointer"
+            onClick={() => {}}
+          >
+            <AsignatureCard
+              title={asignature.title}
+              description={asignature.description}
+            ></AsignatureCard>
+          </div>
         ))}
       </ElementGrid>
     </div>

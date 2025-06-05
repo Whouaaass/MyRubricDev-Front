@@ -24,8 +24,8 @@ const Staff: React.FC<StaffProps> = ({ professors, createDocente, editDocente })
     [createDialogRef.current],
   )
 
-  const handleDocenteClick = (docente: Docente) => {
-    setDocente(docente)
+  const handleDocenteClick = (d: Docente) => {
+    setDocente(d)
     editViewDialogRef.current?.show()
   }
 
