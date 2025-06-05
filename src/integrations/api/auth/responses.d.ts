@@ -6,6 +6,7 @@ export type RegisterOkResponse = {
 
 export type LoginOkResponse = {
   token: string
+  rol: string
   tokenType: string
   expiresIn: number
   username: string

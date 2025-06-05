@@ -35,7 +35,7 @@ export const useSessionStore = create<SessionState>()(
         const data = await authApi.login(username, password)
         AppLocalStorage.saveToken(data.token)
         console.log(data.token)
-        set({ token: data.token, isAuthenticated: true })
+        set({ token: data.token, isAuthenticated: true, rol: data.rol })
       },
 
       logout: () => {
