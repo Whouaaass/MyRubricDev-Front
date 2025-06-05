@@ -18,7 +18,7 @@ const Button: React.FC<ButtonProps> = ({
     primary:
       'bg-actionprimary text-white hover:shadow-gray focus:ring-actionprimary disabled:bg-gray disabled:cursor-not-allowed',
     secondary:
-      'bg-gray-200 text-gray-800 focus:ring-gray-500 disabled:bg-gray disabled:cursor-not-allowed',
+      'bg-actionsecondary text-white focus:ring-gray-500 disabled:bg-gray disabled:cursor-not-allowed',
     outlined:
       'border-2 border-actionprimary text-actionprimary hover:bg-actionprimary hover:text-white focus:ring-actionprimary disabled:bg-gray disabled:cursor-not-allowed',
   }

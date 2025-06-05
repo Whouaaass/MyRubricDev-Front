@@ -1,5 +1,5 @@
 import { queryOptions } from '@tanstack/react-query'
-import { programaApi, usuariosApi } from '../api'
+import { asignaturaApi, programaApi, usuariosApi } from '../api'
 
 export const listDocentesQueryOptions = () =>
   queryOptions({
@@ -19,5 +19,12 @@ export const listRAsProgramaQueryOptions = () =>
   queryOptions({
     queryKey: ['ras'],
     queryFn: () => programaApi.listRAsProgrma(),
+    initialData: [],
+  })
+
+export const listAsignaturasQueryOptions = () =>
+  queryOptions({
+    queryKey: ['ras'],
+    queryFn: () => asignaturaApi.listarAsignaturas(),
     initialData: [],
   })

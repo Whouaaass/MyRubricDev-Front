@@ -1,10 +1,10 @@
-interface CompetenciaBody {
+interface CompetenciaProgramaBody {
   codigo: string
   descripcion: string
   nivel: string
 }
 
-interface RaBody {
+interface RaProgramaBody {
   codigo: string
   descripcion: string
   idCompetencia: number

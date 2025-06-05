@@ -5,17 +5,16 @@ import DialogContainer from '@/components/molecules/dialog/DialogContainer'
 import InputFormField from '@/components/molecules/form/InputFormField'
 import Button from '@/components/atoms/form/Button'
 import { useErrorStore } from '@/integrations/error-display-handler/ErrorStore'
-import SelectFormField from '@/components/molecules/form/SelectFormField'
 import CustomDialogHeader from '@/components/molecules/dialog/CustomDialogHeader'
 
-export type CompetenciaFormData = Omit<CompetenciaPrograma, 'id'>
+export type AsignaturaFormData = Omit<Asignatura, "id">
 
-export interface CreateCompetenciaDialogProps {
+export interface CreateAsignaturaDialogProps {
   onClose: MouseEventHandler
-  onSubmit?: (data: CompetenciaFormData) => Promise<void>
+  onSubmit?: (data: AsignaturaFormData) => Promise<void>
 }
 
-const CreateCompetenciaDialog: React.FC<CreateCompetenciaDialogProps> = ({
+const CreateAsignaturaDialog: React.FC<CreateAsignaturaDialogProps> = ({
   onClose,
   onSubmit,
 }) => {
@@ -23,13 +22,15 @@ const CreateCompetenciaDialog: React.FC<CreateCompetenciaDialogProps> = ({
 
   const form = useForm({
     defaultValues: {
+      nombre: '',
+      creditos: 0,
       codigo: '',
-      descripcion: '',
-      nivel: '',
+      objetivos: '',
+      semestre: 1,
     },
     onSubmit: async (props) => {
       const { value: values } = props
-      console.log('Competencia form submitted:', values)
+      console.log('Asignatura form submitted:', values)
       try {
         if (onSubmit) {
           await onSubmit(values)
@@ -55,7 +56,7 @@ const CreateCompetenciaDialog: React.FC<CreateCompetenciaDialogProps> = ({
   return (
     <DialogContainer onClose={onClose} className="max-w-xl">
       <CustomDialogHeader
-        title="Crear Competencia"
+        title="Crear Asignatura"
         onClose={onClose}
       ></CustomDialogHeader>
       <div className="flex-1 overflow-y-auto p-6">
@@ -66,46 +67,67 @@ const CreateCompetenciaDialog: React.FC<CreateCompetenciaDialogProps> = ({
             form.handleSubmit()
           }}
         >
-          <div className="grid grid-cols-1 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <form.Field name="codigo">
               {(field) => (
                 <InputFormField
                   field={field}
                   label="Código"
-                  placeholder="Ingrese el código de la competencia"
+                  placeholder="Ingrese el código de la asignatura"
                   required
                 />
               )}
             </form.Field>
 
-            <form.Field name="descripcion">
+            <form.Field name="nombre">
               {(field) => (
                 <InputFormField
                   field={field}
-                  label="Descripción"
-                  placeholder="Ingrese la descripción de la competencia"
+                  label="Nombre"
+                  placeholder="Ingrese el nombre de la asignatura"
                   required
-                  multiline
-                  rows={4}
                 />
               )}
             </form.Field>
 
-            <form.Field name="nivel">
+            <form.Field name="creditos">
               {(field) => (
-                <SelectFormField
+                <InputFormField
                   field={field}
-                  label="Nivel"
-                  placeholder="Seleccione el nivel de la competencia"
-                  options={[
-                    { label: 'Básico', value: 'BASICO' },
-                    { label: 'Intermedio', value: 'INTERMEDIO' },
-                    { label: 'Avanzado', value: 'AVANZADO' },
-                  ]}
+                  type="number"
+                  label="Créditos"
+                  placeholder="Ingrese el número de créditos"
                   required
                 />
               )}
             </form.Field>
+
+            <form.Field name="semestre">
+              {(field) => (
+                <InputFormField
+                  field={field}
+                  type="number"
+                  label="Semestre"
+                  placeholder="Ingrese el semestre"
+                  required
+                />
+              )}
+            </form.Field>
+
+            <div className="md:col-span-2">
+              <form.Field name="objetivos">
+                {(field) => (
+                  <InputFormField
+                    field={field}
+                    label="Objetivos"
+                    placeholder="Ingrese los objetivos de la asignatura"
+                    required
+                    multiline
+                    rows={4}
+                  />
+                )}
+              </form.Field>
+            </div>
           </div>
 
           <div className="flex justify-end gap-3 mt-4">
@@ -130,8 +152,16 @@ const CreateCompetenciaDialog: React.FC<CreateCompetenciaDialogProps> = ({
 // Validaciones del formulario
 const validationSchema = z.object({
   codigo: z.string().min(1, 'El código es requerido'),
-  descripcion: z.string().min(1, 'La descripción es requerida'),
-  nivel: z.string().min(1, 'El nivel es requerido'),
+  nombre: z.string().min(1, 'El nombre es requerido'),
+  creditos: z
+    .number()
+    .min(1, 'Los créditos deben ser mayores a 0')
+    .max(20, 'La matería no puede tener más de 20 créditos'),
+  objetivos: z.string().min(1, 'Los objetivos son requeridos'),
+  semestre: z
+    .number()
+    .min(1, 'El semestre debe ser mayor a 0')
+    .max(10, 'El semestre no debe de ser mayor a 10'),
 })
 
-export default CreateCompetenciaDialog
+export default CreateAsignaturaDialog

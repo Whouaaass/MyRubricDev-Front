@@ -9,7 +9,7 @@ import CustomDialogHeader from '@/components/molecules/dialog/CustomDialogHeader
 
 export type RAFormData = Omit<RAPrograma, 'id'>
 
-interface CreateRADialogProps {
+export interface CreateRADialogProps {
   onClose: MouseEventHandler
   onSubmit?: (data: RAFormData) => Promise<void>
   idCompetencia: number

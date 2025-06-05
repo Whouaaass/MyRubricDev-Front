@@ -7,5 +7,7 @@ interface CompetenciaPrograma {
 
 interface CompetenciaAsignatura {
   id: number
-  // TODO
+  codigo: string
+  descripcion: string
+  competenciaProgramaId: number
 }
