@@ -1,10 +1,12 @@
 import LearningResultCard from './LearningResultCard'
+import type { MouseEventHandler } from 'react'
 
 interface CompetencyCardProps {
   title: string
   description: string
   className?: string  
   ras?: Array<LearningResultProp>
+  onClick?: MouseEventHandler
 }
 
 const CompetencyCard: React.FC<CompetencyCardProps> = ({
@@ -12,6 +14,7 @@ const CompetencyCard: React.FC<CompetencyCardProps> = ({
   description,
   className,
   ras,
+  onClick
 }) => {
   return (
     <div className='group'>
@@ -25,7 +28,7 @@ const CompetencyCard: React.FC<CompetencyCardProps> = ({
         {ras?.map((ra) => (
           <LearningResultCard
             title={ra.title}            
-            onClick={() => {}}
+            onClick={onClick}
             className='group-hover:shadow-md'
           ></LearningResultCard>
         ))}

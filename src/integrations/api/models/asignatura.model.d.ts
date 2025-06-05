@@ -7,8 +7,8 @@ interface Asignatura {
   semestre: number
 }
 
-
 interface AsignacionAsignatura {
+  id: number
   asignatura: Asignatura
   docente: Docente
   competencia: CompetenciaAsignatura

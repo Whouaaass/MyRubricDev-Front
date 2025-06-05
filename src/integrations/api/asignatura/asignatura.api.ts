@@ -37,7 +37,12 @@ export async function listarAsignacionesAsignaturaAsociadas() {
   )
   return response.data
 }
-
+export async function obtenerAsignacion(id: number) {
+  const response = await axiosInstance.get<AsignacionAsignatura>(
+    `/asignaturas/asignaciones/${id}`,
+  )
+  return response.data
+}
 // Competencia
 export async function listCompetenciasAsignatura() {
   const response = await axiosInstance.get<Array<CompetenciaAsignatura>>(
@@ -68,12 +73,17 @@ export async function editCompetenciaAsignatura(
 }
 
 // Resultado de aprendizaje
+
 export async function listRAsAsignatura() {
   const response =
     await axiosInstance.get<Array<RAAsignatura>>('/asignaturas/ras')
   return response.data
 }
 
+export async function listarRAsDeCompetencia(id: number) {
+  const response = await axiosInstance.get(`/asignaturas/competencia/${id}/ras`)
+  return response.data
+}
 export async function createRAAsignatura(body: RaAsignaturaBody) {
   const response = await axiosInstance.post<RAAsignatura>(
     '/asignaturas/ra',

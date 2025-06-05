@@ -1,12 +1,12 @@
 import Text from '@/components/atoms/Text'
 
-interface ToastTextContent {
+interface ToastTextContentProps {
   title: string
   message: string
   className?: string
 }
 
-const ToastTextContent: React.FC<ToastTextContent> = ({
+const ToastTextContent: React.FC<ToastTextContentProps> = ({
   title,
   message,
   className,

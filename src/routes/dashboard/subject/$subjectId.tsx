@@ -1,82 +1,23 @@
 import { createFileRoute, useParams } from '@tanstack/react-router'
+import { useQuery } from '@tanstack/react-query'
+import { toast } from 'react-toastify'
+import type {SubjectTemplateProps} from '@/components/templates/Subject';
 import UniversityLogo from '@/components/atoms/UniversityLogo'
 import DashboardLayout from '@/components/templates/DashboardLayout'
 import { APP_NAME } from '@/constants/app.constants'
 import SubjectTemplate from '@/components/templates/Subject'
+import {
+  asignacionQueryOptions,
+  listRAsAsignaturaByCompetenciaQueryOptions,
+} from '@/integrations/tanstack-query/queries'
+import { asignaturaApi } from '@/integrations/api'
+import ToastTextContent from '@/components/molecules/toast/ToastTextContent'
 
 export const Route = createFileRoute('/dashboard/subject/$subjectId')({
   component: RouteComponent,
 })
 
-const RAS_DUMMY: Array<
-  LearningResultProp & { competencyId: number; code: string }
-> = [
-  {
-    id: 1,
-    title: 'RA01',
-    description:
-      'Analiza problemas computacionales complejos y diseña soluciones algorítmicas eficientes.',
-    competencyId: 1,
-    code: 'RA01',
-  },
-  {
-    id: 2,
-    title: 'RA02',
-    description:
-      'Implementa estructuras de datos avanzadas y algoritmos optimizados para resolver problemas específicos.',
-    competencyId: 1,
-    code: 'RA02',
-  },
-  {
-    id: 3,
-    title: 'RA03',
-    description:
-      'Utiliza metodologías ágiles y herramientas modernas en el desarrollo de software.',
-    competencyId: 2,
-    code: 'RA03',
-  },
-  {
-    id: 4,
-    title: 'RA04',
-    description:
-      'Aplica principios de diseño y patrones arquitectónicos en el desarrollo de sistemas.',
-    competencyId: 2,
-    code: 'RA04',
-  },
-  {
-    id: 5,
-    title: 'RA05',
-    description:
-      'Demuestra comprensión de la teoría computacional y su aplicación en problemas prácticos.',
-    competencyId: 3,
-    code: 'RA05',
-  },
-]
 
-const COMPETENCIES_DUMMY = [
-  {
-    id: 1,
-    title: 'CE01',
-    description:
-      'Diseñar soluciones computacionales aplicando principios de matemáticas, ciencias de la computación y disciplinas afines.',
-    code: 'CE01',
-    ras: RAS_DUMMY,
-  },
-  {
-    id: 2,
-    title: 'CE02',
-    description:
-      'Desarrollar software de calidad aplicando metodologías de desarrollo, estándares y métricas internacionales.',
-    code: 'CE02',
-  },
-  {
-    id: 3,
-    title: 'CE03',
-    description:
-      'Aplicar fundamentos matemáticos, principios algorítmicos y teorías de Ciencias de la Computación en la modelación y diseño de soluciones computacionales.',
-    code: 'CE03',
-  },
-]
 
 const STUDENTS_DUMMY = [
   {
@@ -108,17 +49,42 @@ const SUBJECT_DUMMY = {
 function RouteComponent() {
   const params = useParams({ from: '/dashboard/subject/$subjectId' })
 
+  function toastMessage(title: string, message: string) {
+    toast(<ToastTextContent title={title} message={message} />)
+  }
+
+  const asignacionQuery = useQuery(
+    asignacionQueryOptions(parseInt(params.subjectId)),
+  )
+  const resultadosQuery = useQuery(
+    listRAsAsignaturaByCompetenciaQueryOptions(
+      asignacionQuery.data?.competencia.id,
+    ),
+  )
+
+  const createRA: SubjectTemplateProps['onCreateRA'] = async (data) => {
+    const ra = await asignaturaApi.createRAAsignatura(data)
+    toastMessage('Ra Creada', 'Se ha creado un ra: ' + ra.codigo)
+    resultadosQuery.refetch()
+  }
+
+  const nombre = asignacionQuery.data?.asignatura.nombre ?? '...'
+  const competencias = asignacionQuery.data?.competencia
+    ? [asignacionQuery.data.competencia]
+    : []
+
   return (
     <DashboardLayout
       appName={APP_NAME}
-      title={`Asignatura > ${params.subjectId}`}
+      title={`Asignatura > ${nombre}`}
       logo={<UniversityLogo />}
     >
       <SubjectTemplate
-        competencies={COMPETENCIES_DUMMY}
-        ras={RAS_DUMMY}
+        competencies={competencias}
+        ras={resultadosQuery.data}
         subject={SUBJECT_DUMMY}
         students={STUDENTS_DUMMY}
+        onCreateRA={createRA}
       ></SubjectTemplate>
     </DashboardLayout>
   )
