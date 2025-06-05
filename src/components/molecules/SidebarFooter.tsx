@@ -36,20 +36,7 @@ export const SidebarFooter: React.FC<SidebarFooterProps> = ({
         <div className="flex justify-center">
           <Avatar></Avatar>
         </div>
-      )}
-      {/*
-      <ul
-        className={`absolute ${open ? 'flex' : 'hidden'} bottom-full w-full left-0  z-10 shadow-md`}
-      >
-        <li 
-        className="flex flex-1 flex-row p-4 text-actiondanger hover:bg-actionprimary hover:text-red-100 transition-colors"
-        onClick={() =>}
-        >
-          <LogOut></LogOut>
-          <p className="text-center flex-1">Cerrar sesión</p>
-        </li>
-      </ul>
-*/}
+      )}   
     </div>
   )
 }

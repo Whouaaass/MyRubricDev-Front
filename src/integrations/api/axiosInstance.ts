@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useErrorStore } from '../error-display-handler/ErrorStore';
 import type { AxiosError, AxiosInstance } from 'axios';
 import { AppLocalStorage } from '@/integrations/localStorage/AppLocalStorage';
 
@@ -39,8 +40,12 @@ axiosInstance.interceptors.response.use(
             route => error.config?.url?.includes(route)
         );
 
+        if (error.response?.data.errorCode) {
+            useErrorStore.getState().setError(error)
+        }
+
         if (shouldCatchError) {
-            // let errorMessage = 'An unexpected error occurred';
+            let errorMessage = 'An unexpected error occurred';
 
             if (error.response) {
                 // The request was made and the server responded with a status code

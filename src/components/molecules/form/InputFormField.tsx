@@ -12,6 +12,7 @@ interface BaseFormFieldProps {
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void
   error?: string
   required?: boolean
+  disabled?: boolean
 }
 
 interface WithFieldProps extends BaseFormFieldProps {
@@ -45,13 +46,13 @@ const FormField: React.FC<FormFieldProps> = ({
   onBlur,
   error,
   required = false,
+  disabled = false,
 }) => {  
   const hasError = field ? (field.state.meta.errors.length > 0 && field.state.meta.isBlurred) : !!error
   return <div className="mb-1">
     <Label htmlFor={id} required={required}>
       {label}
-    </Label>
-    {field ? (
+    </Label>    {field ? (
       <Input
         id={field.name}
         name={field.name}
@@ -67,6 +68,7 @@ const FormField: React.FC<FormFieldProps> = ({
         }
         onBlur={field.handleBlur}
         hasError={hasError}
+        disabled={disabled}
       ></Input>
     ) : (
       <Input
@@ -77,6 +79,7 @@ const FormField: React.FC<FormFieldProps> = ({
         onChange={onChange}
         onBlur={onBlur}
         hasError={!!error}
+        disabled={disabled}
       />
     )}
     {hasError && <ErrorMessage message={getErrorMessage(field, error)} />}

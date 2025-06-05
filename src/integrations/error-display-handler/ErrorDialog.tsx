@@ -4,14 +4,24 @@
 import { useEffect, useRef } from 'react'
 import { useErrorStore } from './ErrorStore'
 import AlertDialogContent from '@/components/organisms/dialogs/AlertDialog'
+import { useSession } from '@/hooks/useSession'
+
+
 
 const ErrorDialog: React.FC = () => {
   const { error, clearError } = useErrorStore()
 
+  const { logout } = useSession()
+
   const dialogRef = useRef<HTMLDialogElement>(null)
 
-  const handleClose = () => {
-    dialogRef.current?.close()
+  const handleClose = async () => {
+    dialogRef.current?.close()    
+    if (error?.bussiness_code === 'AUTH_003') {
+      await logout()
+      clearError()
+    }
+
     clearError()
   }
 

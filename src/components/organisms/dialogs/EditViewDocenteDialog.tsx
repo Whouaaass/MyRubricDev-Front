@@ -5,46 +5,37 @@ import DialogContainer from '@/components/molecules/dialog/DialogContainer'
 import InputFormField from '@/components/molecules/form/InputFormField'
 import Button from '@/components/atoms/form/Button'
 import CustomZodValidations from '@/integrations/zod/CustomZodValidations'
-import { useErrorStore } from '@/integrations/error-display-handler/ErrorStore'
 import SelectFormField from '@/components/molecules/form/SelectFormField'
 import CustomDialogHeader from '@/components/molecules/dialog/CustomDialogHeader'
 
-export type DocenteFormData = Omit<Docente, 'id' | 'activo'>
+type formDataDocente = Omit<Docente, 'id' | 'activo'>
 
-interface CreateDocenteDialogProps {
+export interface EditViewDocenteDialogProps {
   onClose: MouseEventHandler
-  onSubmit?: (data: DocenteFormData) => Promise<void>
+  onSubmit?: (
+    data: formDataDocente,
+    id: number | undefined,
+  ) => Promise<void> | void
+  initialData?: Docente
+  viewMode?: boolean
 }
 
-const CreateDocenteDialog: React.FC<CreateDocenteDialogProps> = ({
+const EditViewDocenteDialog: React.FC<EditViewDocenteDialogProps> = ({
   onClose,
   onSubmit,
+  initialData,
+  viewMode = false,
 }) => {
-  const errorStore = useErrorStore()
-
   const form = useForm({
-    defaultValues: {
-      nombre: '',
-      apellido: '',
-      correoAcademico: '',
-      tipoIdentificacion: '',
-      identificacion: '',
-      tipoDocente: '',
-      tituloAcademico: '',
-    },
+    defaultValues: initialData as formDataDocente,
     onSubmit: async (props) => {
       const { value: values } = props
       console.log('Docente form submitted:', values)
-      try {
-        if (onSubmit) {
-          await onSubmit(values)
-        }
-        // Close the dialog after successful submission
-        onClose({} as React.MouseEvent)
-      } catch (error) {
-        errorStore.setError(error)
-        throw error
+      if (onSubmit) {
+        await onSubmit(values, initialData?.id)
       }
+      // Close the dialog after successful submission
+      onClose({} as React.MouseEvent)
     },
     onSubmitInvalid(props) {
       console.log('Form submission invalid:', props)
@@ -60,7 +51,7 @@ const CreateDocenteDialog: React.FC<CreateDocenteDialogProps> = ({
   return (
     <DialogContainer onClose={onClose} className="max-w-xl">
       <CustomDialogHeader
-        title="Crear Docentes"
+        title={viewMode ? 'Ver Docente' : 'Editar Docente'}
         onClose={onClose}
       ></CustomDialogHeader>
       <div className="flex-1 overflow-y-auto p-6">
@@ -79,6 +70,7 @@ const CreateDocenteDialog: React.FC<CreateDocenteDialogProps> = ({
                   label="Nombre"
                   placeholder="Ingrese el nombre"
                   required
+                  disabled={viewMode}
                 />
               )}
             </form.Field>
@@ -90,6 +82,7 @@ const CreateDocenteDialog: React.FC<CreateDocenteDialogProps> = ({
                   label="Apellido"
                   placeholder="Ingrese el apellido"
                   required
+                  disabled={viewMode}
                 />
               )}
             </form.Field>
@@ -102,6 +95,7 @@ const CreateDocenteDialog: React.FC<CreateDocenteDialogProps> = ({
                   placeholder="correo@institucion.edu"
                   type="email"
                   required
+                  disabled={viewMode}
                 />
               )}
             </form.Field>
@@ -119,6 +113,7 @@ const CreateDocenteDialog: React.FC<CreateDocenteDialogProps> = ({
                     { label: 'Pasaporte', value: 'PP' },
                   ]}
                   required
+                  disabled={viewMode}
                 />
               )}
             </form.Field>
@@ -130,6 +125,7 @@ const CreateDocenteDialog: React.FC<CreateDocenteDialogProps> = ({
                   label="Número de identificación"
                   placeholder="Ingrese número de identificación"
                   required
+                  disabled={viewMode}
                 />
               )}
             </form.Field>
@@ -146,6 +142,7 @@ const CreateDocenteDialog: React.FC<CreateDocenteDialogProps> = ({
                     { label: 'Planta', value: 'PLANTA' },
                   ]}
                   required
+                  disabled={viewMode}
                 />
               )}
             </form.Field>
@@ -154,7 +151,7 @@ const CreateDocenteDialog: React.FC<CreateDocenteDialogProps> = ({
               {(field) => (
                 <SelectFormField
                   field={field}
-                  label="Grado académico"
+                  label="Titulo académico"
                   placeholder="Selecciona grado académico"
                   options={[
                     { label: 'Pregrado', value: 'PREGRADO' },
@@ -164,6 +161,7 @@ const CreateDocenteDialog: React.FC<CreateDocenteDialogProps> = ({
                     { label: 'Postdoctorado', value: 'POSTDOCTORADO' },
                   ]}
                   required
+                  disabled={viewMode}
                 />
               )}
             </form.Field>
@@ -171,16 +169,18 @@ const CreateDocenteDialog: React.FC<CreateDocenteDialogProps> = ({
 
           <div className="flex justify-end gap-3 mt-4">
             <Button variant="outlined" onClick={onClose}>
-              Cancelar
+              {viewMode ? 'Cerrar' : 'Cancelar'}
             </Button>
-            <form.Subscribe
-              selector={(state) => [state.canSubmit, state.isSubmitting]}
-              children={([canSubmit, isSubmitting]) => (
-                <Button type="submit" disabled={!canSubmit}>
-                  {isSubmitting ? 'Guardando...' : 'Guardar'}
-                </Button>
-              )}
-            />
+            {!viewMode && (
+              <form.Subscribe
+                selector={(state) => [state.canSubmit, state.isSubmitting]}
+                children={([canSubmit, isSubmitting]) => (
+                  <Button type="submit" disabled={!canSubmit}>
+                    {isSubmitting ? 'Guardando...' : 'Guardar Cambios'}
+                  </Button>
+                )}
+              />
+            )}
           </div>
         </form>
       </div>
@@ -199,4 +199,4 @@ const validationSchema = z.object({
   tituloAcademico: CustomZodValidations.academicDegree(),
 })
 
-export default CreateDocenteDialog
+export default EditViewDocenteDialog

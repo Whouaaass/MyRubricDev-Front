@@ -38,6 +38,7 @@ function parseAxiosError(error: AxiosError<ApiErrorResponse | any>): StoredError
     const message = error.response?.data?.details ?? error.message
     return {
       error: error.name,
+      bussiness_code: error.response?.data.errorCode ?? undefined,
       short: getHttpErrorTitle(error.status),
       message,
       errorType: 'HTTP',

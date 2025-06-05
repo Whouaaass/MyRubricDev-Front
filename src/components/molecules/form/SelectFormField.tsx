@@ -16,6 +16,7 @@ interface BaseSelectFieldProps {
   onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void
   onBlur?: (e: React.FocusEvent<HTMLSelectElement>) => void
   error?: string
+  disabled?: boolean
   required?: boolean
 }
 
@@ -69,6 +70,7 @@ const SelectFormField: React.FC<SelectFormFieldProps> = ({
   onChange,
   onBlur,
   error,
+  disabled,
   required = false,
 }) => {
   const hasError = field
@@ -89,6 +91,7 @@ const SelectFormField: React.FC<SelectFormFieldProps> = ({
           onChange={(e) => field.handleChange(e.target.value)}
           onBlur={field.handleBlur}
           hasError={hasError}
+          disabled={disabled}
         >
           {placeholder && (
             <option disabled value="">
@@ -108,6 +111,7 @@ const SelectFormField: React.FC<SelectFormFieldProps> = ({
           onChange={onChange}
           onBlur={onBlur}
           hasError={hasError}
+          disabled={disabled}
         >
           {placeholder && (
             <option value="" disabled>

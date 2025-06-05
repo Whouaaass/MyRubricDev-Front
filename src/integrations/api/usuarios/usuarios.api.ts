@@ -11,7 +11,15 @@ export async function createDocente(body: createDocenteBody) {
   return response.data
 }
 
+export async function editDocente(id: number, body: editDocenteBody) {
+  const response = await axiosInstance.put<createDocenteBody>(
+    `/usuarios/docentes/${id}`,
+    body,
+  )
+  return response.data
+}
+
 export async function listDocentes() {
-  const response = await axiosInstance.get('/usuarios/docentes')
+  const response = await axiosInstance.get<Array<Docente>>('/usuarios/docentes')
   return response.data
 }
